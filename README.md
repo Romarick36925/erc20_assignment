@@ -1,137 +1,102 @@
-UBa Education Blockchain Project: Campus Credit Token & Academic Registry
-This repository contains the Solidity smart contracts and Hardhat development environment for the University of Bamenda (UBa) Education blockchain project. It features a custom ERC20 token (CampusCreditToken) with multi-signature controls and a decentralized academic credential verification system (UBaAcademicRegistry).
+# ERC20 Project
 
-Project Overview
-This project addresses the need for a secure and transparent system for managing academic credentials and facilitating payments within the UBa Education ecosystem.
+A blockchain-based educational platform featuring a custom ERC20 token (MyToken.sol) with multi-signature controls and an academic credential verification system for the University of Bamenda.
 
-Key Components:
+## Setup Instructions
 
-CampusCreditToken.sol (CMCR Token): An ERC20 token with custom functionalities:
+### Prerequisites
+- Node.js (LTS version)
+- npm
+- MetaMask wallet with Sepolia testnet configured
 
-Users can acquire tokens by sending ETH to the contract.
+### Installation
 
-Multi-signature approval (2 out of 3 designated administrators) is required for minting new tokens.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Romarick36925/erc20_assignment.git
+   cd erc20_assignment
+   ```
 
-Multi-signature approval (2 out of 3 designated administrators) is required for withdrawing ETH from the contract.
+2. **Install dependencies:**
+   ```bash
+   npm install --save-dev hardhat
+   npm install
+   ```
 
-Includes reentrancy protection for withdrawals.
+3. **Initialize Hardhat project:**
+   ```bash
+   npx hardhat
+   ```
 
-UBaAcademicRegistry.sol: A contract for decentralized education credential verification:
+4. **Configure environment variables:**
+   Create a `.env` file in the project root:
+   ```
+   ALCHEMY_SEPOLIA_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_API_KEY
+   PRIVATE_KEY=YOUR_METAMASK_PRIVATE_KEY
+   ETHERSCAN_API_KEY=YOUR_ETHERSCAN_API_KEY
+   ```
 
-Allows users to register academic credential hashes (proof of existence) on the blockchain, paying with CMCR tokens.
+5. **Install VS Code extensions:**
+   - Hardhat Multichain
+   - Hardhat Test Snippets
+   - Hardhat Developer Pack
+   - Solidity
 
-Provides a view function to verify if a credential hash exists.
+## Deployed Contract Addresses (Sepolia)
 
-Stores only cryptographic hashes of credentials for privacy and efficiency.
+### CampusCreditToken (CMCR)
+- **Contract Address:** `0x1Ed15A4b77520D6b7A6deaEe2193eDd8c0b80B26`
+- **Etherscan:** https://sepolia.etherscan.io/address/0x1Ed15A4b77520D6b7A6deaEe2193eDd8c0b80B26#code
 
-Owner-only functions for withdrawing collected CMCR tokens and updating registration fees.
+### UBaEducationCredentialsStore
+- **Contract Address:** 0xA94cA9b030B2DA9A4CB95A6FF7DD29f7B2479a5A
+- **Etherscan:** [[Verification link available]](https://sepolia.etherscan.io/address/0xA94cA9b030B2DA9A4CB95A6FF7DD29f7B2479a5A#code)
 
-ReentrancyExploiter.sol: A utility contract used purely for unit testing and demonstrating the reentrancy protection of the CampusCreditToken.
+## Test Execution
 
-Setup Instructions
-To set up the project locally, follow these steps:
-
-Clone the Repository:
-
-git clone https://github.com/Romarick36925/erc20_assignment.git
-cd uba-lms-contracts
-
-Install Node.js and npm:
-Ensure you have Node.js (LTS version recommended) and npm installed.
-Verify with:
-
-node -v
-npm -v
-
-Install Project Dependencies:
-Navigate to the project root and install all required Node.js packages:
-
-npm install
-
-Configure .env File:
-Create a .env file in the project root (uba-lms-contracts/.env) and add your Alchemy/Infura Sepolia URL, your MetaMask private key (for deployment), and your Etherscan API key. Do not commit this file to Git.
-
-ALCHEMY_SEPOLIA_URL=https://eth-sepolia.g.alchemy.com/v2/YOUR_ALCHEMY_API_KEY
-PRIVATE_KEY=YOUR_METAMASK_PRIVATE_KEY_FOR_DEPLOYER
-ETHERSCAN_API_KEY=YOUR_ETHERSCAN_API_KEY
-
-Ensure .env is listed in your .gitignore file.
-
-Update Deployment Admin Addresses:
-In scripts/deploy_token.js, update the placeholder addresses for admin1, admin2, and admin3 with actual Sepolia testnet addresses you control. These will be the multi-signature administrators.
-
-Deployed Contract Addresses on Sepolia
-After deploying your contracts to the Sepolia testnet, their addresses will be printed to your terminal. Update this section with your actual deployed addresses.
-
-CampusCreditToken Address: [YOUR_DEPLOYED_CAMPUS_CREDIT_TOKEN_ADDRESS]
-
-UBaAcademicRegistry Address: [YOUR_DEPLOYED_UBA_ACADEMIC_REGISTRY_ADDRESS]
-
-Etherscan Verification Links:
-
-CampusCreditToken: [YOUR_CAMPUS_CREDIT_TOKEN_ETHERSCAN_LINK]
-
-UBaAcademicRegistry: [YOUR_UBA_ACADEMIC_REGISTRY_ETHERSCAN_LINK]
-
-Test Execution
-To run the unit tests for the smart contracts:
-
-Start the Hardhat Local Network:
-Open a new terminal window in your project root and run:
-
-npx hardhat node
-
-Keep this terminal running throughout the testing process.
-
-Run the Tests:
-Open a second terminal window in your project root and execute the tests:
-
+### Run Unit Tests
+```bash
 npx hardhat test
+```
 
-You should see output indicating all tests have passed, confirming the contracts' functionality and security.
+### Start Local Network (for testing)
+```bash
+npx hardhat node
+```
 
-Deployment Steps
-To deploy your contracts to the Sepolia testnet:
-
-Compile Contracts:
-
+### Compile Contracts
+```bash
 npx hardhat compile
+```
 
-Deploy CampusCreditToken:
-
+### Deploy to Sepolia
+```bash
 npx hardhat run scripts/deploy_token.js --network sepolia
+```
 
-Note the deployed address and the Etherscan verification command printed in the terminal.
+### Verify on Etherscan
+```bash
+npx hardhat verify --network sepolia [CONTRACT_ADDRESS] [CONSTRUCTOR_ARGS]
+```
 
-Verify CampusCreditToken on Etherscan:
-Use the command provided by the deployment script (replace placeholders with actual values):
+## Features
 
-npx hardhat verify --network sepolia YOUR_CAMPUS_CREDIT_TOKEN_ADDRESS ADMIN1_ADDRESS ADMIN2_ADDRESS ADMIN3_ADDRESS
+- **Custom ERC20 Token:** CampusCreditToken with ETH-to-token conversion
+- **Multi-signature System:** 2-of-3 admin approval for minting and withdrawals
+- **Credential Verification:** On-chain academic credential storage and verification
+- **Security:** Reentrancy protection and access control
 
-Deploy UBaAcademicRegistry:
-(You will need to create scripts/deploy_registry.js similar to deploy_token.js, passing the deployed CampusCreditToken address as a constructor argument.)
+## Demo Transaction
 
-npx hardhat run scripts/deploy_registry.js --network sepolia
+**Token Transfer Hash:** `0x39d56b7f791d080b7451b590df3ac801cc701252f4ba81269859168c6258fcd9`
 
-Note the deployed address and the Etherscan verification command.
+## Links
 
-Verify UBaAcademicRegistry on Etherscan:
-Use the command provided by the deployment script (replace placeholders with actual values):
+- **GitHub Repository:** https://github.com/Romarick36925/erc20_assignment.git
+- **Video Demo:** https://www.youtube.com/watch?v=QMdCyCblM9g
 
-npx hardhat verify --network sepolia YOUR_UBA_ACADEMIC_REGISTRY_ADDRESS YOUR_CAMPUS_CREDIT_TOKEN_ADDRESS INITIAL_REGISTRATION_FEE_IN_WEI
+## Author
 
-Video Demonstration
-A video demonstrating the project's features will be provided. It will cover:
-
-Contract deployment to Sepolia.
-
-Token transfers.
-
-Multi-signature minting process.
-
-Etherscan verification.
-
-Unit test execution.
-
-Interactions with UBaAcademicRegistry (token approval, storing credential, credential verification).
-
+**Apongnwu Clintin Tipekwa**  
+Matricule: UBA23EP019  
+University of Bamenda - NAHPI
