@@ -44,7 +44,7 @@ A blockchain-based educational platform featuring a custom ERC20 token (MyToken.
 
 ## Deployed Contract Addresses (Sepolia)
 
-### CampusCreditToken (CMCR)
+### MyToken (G0TK)
 - **Contract Address:** `0x1Ed15A4b77520D6b7A6deaEe2193eDd8c0b80B26`
 - **Etherscan:** https://sepolia.etherscan.io/address/0x1Ed15A4b77520D6b7A6deaEe2193eDd8c0b80B26#code
 
